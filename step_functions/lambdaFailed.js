@@ -1,5 +1,5 @@
-const logIndicator = `______________________________________`
+const logIndicator = `-----------`
 exports.handler = (event, context, callback) => {
-    console.log(`${logIndicator} lambdaZ-Failed - Event : ${JSON.stringify(event)}`)
+    console.log(`${logIndicator} lambdaFailed - Event : ${JSON.stringify(event)}`)
     callback(null, event);
 };

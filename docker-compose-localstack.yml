@@ -12,7 +12,7 @@ services:
     environment:
       - DEFAULT_REGION=eu-central-1
       # - SERVICES=${SERVICES- }
-      - SERVICES=lambda, sqs, sns, events
+      - SERVICES=lambda, sqs, sns, events, stepfunctions
       # - DEBUG=${DEBUG- }
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data

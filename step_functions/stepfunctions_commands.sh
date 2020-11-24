@@ -3,7 +3,7 @@
 awslocal stepfunctions delete-state-machine \
     --state-machine-arn arn:aws:states:eu-central-1:000000000000:stateMachine:HelloWorld
 awslocal lambda delete-function --function-name lambdaStarter
-awslocal lambda delete-function --function-name lambdaReceiver
+awslocal lambda delete-function --function-name lambdaSuccess
 awslocal lambda delete-function --function-name lambdaFailed
 
 awslocal lambda create-function --function-name lambdaStarter \
@@ -11,9 +11,9 @@ awslocal lambda create-function --function-name lambdaStarter \
     --handler lambdaStarter.handler \
     --runtime nodejs12.x \
     --role whatever;
-awslocal lambda create-function --function-name lambdaReceiver \
+awslocal lambda create-function --function-name lambdaSuccess \
     --code S3Bucket="__local__",S3Key="/Users/anil.ustundag/Github/localstack-demo/step_functions/" \
-    --handler lambdaReceiver.handler \
+    --handler lambdaSuccess.handler \
     --runtime nodejs12.x \
     --role whatever;
 awslocal lambda create-function --function-name lambdaFailed \
@@ -40,7 +40,7 @@ awslocal stepfunctions create-state-machine \
         {
           "Variable": "$.isValid",
           "NumericEquals": 1,
-          "Next": "TestReceiver"
+          "Next": "Success"
         },
         {
           "Variable": "$.isValid",
@@ -49,9 +49,9 @@ awslocal stepfunctions create-state-machine \
         }
       ]
     },
-    "TestReceiver": {
+    "Success": {
       "Type": "Task",
-      "Resource": "arn:aws:lambda:eu-central-1:000000000000:function:lambdaReceiver",
+      "Resource": "arn:aws:lambda:eu-central-1:000000000000:function:lambdaSuccess",
       "End": true
     },
     "Failed": {
